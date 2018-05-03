@@ -102,6 +102,28 @@ int appimage_type2_shall_not_be_integrated(const char* path);
  */
 int appimage_shall_not_be_integrated(const char* path);
 
+/*
+ * Calculate the size of an ELF file on disk based on the information in its header
+ *
+ * Example:
+ *
+ * ls -l   126584
+ *
+ * Calculation using the values also reported by readelf -h:
+ * Start of section headers	e_shoff		124728
+ * Size of section headers		e_shentsize	64
+ * Number of section headers	e_shnum		29
+ *
+ * e_shoff + ( e_shentsize * e_shnum ) =	126584
+ */
+ssize_t appimage_get_elf_size(const char* fname);
+
+/*
+ * Creates hexadecimal representation of a byte array. Allocates a new char array (string) with the correct size that
+ * needs to be free()d.
+ */
+char* appimage_hexlify(const char* bytes, size_t numBytes);
+
 #ifdef __cplusplus
 }
 #endif
